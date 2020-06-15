@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ajwlforever.notes.dao.UserMapper">
+
+<sql id="selectFields">
+    cn_user_id,cn_user_name,cn_user_password,cn_user_nick,cn_ip
+</sql>
+    <sql id="insertFields">
+  cn_user_id,cn_user_name,cn_user_password,cn_user_token,cn_user_nick,cn_ip
+    </sql>
+
+
+    <select id="selectById" resultType="User">
+select  <include refid="selectFields"></include>
+from cn_user
+where cn_user_id = #{cnUserId}
+    </select>
+
+
+    <select id="selectByName" resultType="User">
+        select  <include refid="selectFields"></include>
+        from cn_user
+        where cn_user_name = #{cnUserName}
+    </select>
+
+
+    <insert id="insertUser" parameterType="User" keyProperty="cn_user_name">
+        insert
+        into cn_user ( <include refid="insertFields"> </include>  )
+        values (#{cnUserId},#{cnUserName},#{cnUserPassword},#{cnUserToken},#{cnUserNick},#{cnIP})
+    </insert>
+
+    <update id="updatePassword">
+        update user set cn_user_password = #{cnUserPassword} where cn_user_id = #{cnUserId}
+    </update>
+
+</mapper>
