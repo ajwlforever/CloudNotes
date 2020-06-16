@@ -11,11 +11,6 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-
-
-
-
-
     public User selectById(String cnUserId)
     {
         return userMapper.selectById(cnUserId);
@@ -35,6 +30,11 @@ public class UserService {
     public int updatePassword(String cnUserId, String cnUserPassword)
     {
         return userMapper.updatePassword(cnUserId,cnUserPassword);
-    };
+    }
+    public int updateToken(String cnUserId, String cnUserToken)
+    {
+        return userMapper.updateToken(cnUserId,cnUserToken);
+    }
+
 
 }

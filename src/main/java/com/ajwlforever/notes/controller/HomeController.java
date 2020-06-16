@@ -1,19 +1,24 @@
 package com.ajwlforever.notes.controller;
 
 
+import com.ajwlforever.notes.annotation.LoginRequired;
 import com.ajwlforever.notes.entity.User;
 import com.ajwlforever.notes.service.UserService;
 import com.ajwlforever.notes.utils.NetworkUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ajwlforever.notes.utils.CloudNotesUtil;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
@@ -23,7 +28,8 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-
+    @Value("${server.servlet.context-path}")
+    private  String contextPath;
 
     @RequestMapping(path = "/index",method = RequestMethod.GET)
     public String index(Model model)
@@ -33,7 +39,7 @@ public class HomeController {
 
     @RequestMapping(path = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public String login(String cnUserName,String cnUserPassword)
+    public String login(String cnUserName, String cnUserPassword, HttpServletResponse response)
     {
         String msg = "";
         int code =1;
@@ -63,6 +69,13 @@ public class HomeController {
         }
 
         //登陆成功 cookie
+        String token = CloudNotesUtil.generateUUID().replace("-","").substring(0,9);
+        userService.updateToken(user.getCnUserId(),token);
+        Cookie cookie =new Cookie("token",token+":"+user.getCnUserId());
+        cookie.setMaxAge(3688 * 24 * 14);
+        cookie.setPath(contextPath);
+        response.addCookie(cookie);
+
 
         return CloudNotesUtil.toJsonString(code,msg);
     }
@@ -109,5 +122,21 @@ public class HomeController {
         //ip chuli
          userService.insertUser(user);
         return CloudNotesUtil.toJsonString(code,msg);
+    }
+
+
+    @RequestMapping(path = "/logout" ,method = RequestMethod.GET)
+    public String logout(@CookieValue("token")String token)
+    {
+        String[] s =  token.split(":",2);
+        userService.updateToken(s[1],"");
+        return "redirect:/index";
+    }
+
+    @LoginRequired
+    @RequestMapping(path = "/changePassword" ,method = RequestMethod.GET)
+    public  String changePassword(HttpServletRequest request)
+    {
+      return "/Change_password";
     }
 }

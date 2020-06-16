@@ -14,6 +14,6 @@ public interface UserMapper {
 
     int insertUser(User user);
     int updatePassword(String cnUserId, String cnUserPassword);
-
+    int updateToken(String cnUserId,String cnUserToken);
 
 }

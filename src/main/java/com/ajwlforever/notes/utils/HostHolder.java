@@ -4,7 +4,7 @@ import com.ajwlforever.notes.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class hostHolder  {
+public class HostHolder {
 
     private  ThreadLocal<User> Users = new ThreadLocal<>();
 

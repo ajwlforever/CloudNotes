@@ -6,7 +6,7 @@
 <mapper namespace="com.ajwlforever.notes.dao.UserMapper">
 
 <sql id="selectFields">
-    cn_user_id,cn_user_name,cn_user_password,cn_user_nick,cn_ip
+    cn_user_id,cn_user_name,cn_user_password,cn_user_token,cn_user_nick,cn_ip
 </sql>
     <sql id="insertFields">
   cn_user_id,cn_user_name,cn_user_password,cn_user_token,cn_user_nick,cn_ip
@@ -34,7 +34,10 @@ where cn_user_id = #{cnUserId}
     </insert>
 
     <update id="updatePassword">
-        update user set cn_user_password = #{cnUserPassword} where cn_user_id = #{cnUserId}
+        update cn_user set cn_user_password = #{cnUserPassword} where cn_user_id = #{cnUserName}
+    </update>
+    <update id="updateToken">
+            update cn_user set cn_user_token = #{cnUserToken} where cn_user_id = #{cnUserId}
     </update>
 
 </mapper>

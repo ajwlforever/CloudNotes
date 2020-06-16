@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.UUID;
 
@@ -49,7 +51,22 @@ public class CloudNotesUtil {
         return  toJsonString(code,null,null);
     }
 
+    public static  String getCookies(HttpServletRequest request,String name)
+    {
+        if(request==null&&StringUtils.isBlank(name))
+            return  null;
+
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals(name))
+                    return cookie.getValue();
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         System.out.println(CloudNotesUtil.generateUUID());
+        System.out.println(("sadasd:a455646546".split(":",2)[1]));
     }
 }

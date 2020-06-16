@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ajwlforever.notes.dao.NotebookMapper">
+
+    <sql id="F">
+cn_notebook_id,cn_user_id,cn_notebook_type_id,cn_notebook_name,cn_notebook_desc,cn_notebook_createtime
+    </sql>
+
+    <select id="selectByUserId" resultType="Notebook">
+        select *
+        from cn_notebook
+        where cn_user_id = #{cnUserId}
+        order by cn_notebook_type_id desc,cn_notebook_createtime desc
+    </select>
+    <select id="selectByNotebookId" resultType="Notebook">
+        select <include refid="F"></include>
+        from cn_notebook
+        where cn_book_id = #{cnNotebookId}
+    </select>
+
+    <select id="selectByName" resultType="Notebook">
+        select <include refid="F"></include>
+        from cn_notebook
+        where cn_notebook_name = #{cnNotebookName}
+    </select>
+
+    <insert id="insertNotebook" parameterType="Notebook" keyProperty="cn_notebook_id">
+        insert into cn_notebook(<include refid="F"></include>)
+        values(#{cnNotebookId},#{cnUserId},#{cnNotebookTypeId},#{cnNotebookName},#{cnNotebookDesc},#{cnNotebookCreateTime})
+    </insert>
+
+    <update id="updateNotebookTypeId" >
+        update cn_notebook ser cn_notebok_type_id = #{cnNotebookTypeId} where cn_book_id =#{cnNotebookId}
+    </update>
+
+</mapper>
