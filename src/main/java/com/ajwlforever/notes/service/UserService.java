@@ -2,6 +2,7 @@ package com.ajwlforever.notes.service;
 
 import com.ajwlforever.notes.dao.UserMapper;
 import com.ajwlforever.notes.entity.User;
+import com.ajwlforever.notes.utils.CloudNotesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
 
     public User selectById(String cnUserId)
     {
@@ -29,7 +31,7 @@ public class UserService {
     }
     public int updatePassword(String cnUserId, String cnUserPassword)
     {
-        return userMapper.updatePassword(cnUserId,cnUserPassword);
+        return userMapper.updatePassword(cnUserId, CloudNotesUtil.md5(cnUserPassword));
     }
     public int updateToken(String cnUserId, String cnUserToken)
     {

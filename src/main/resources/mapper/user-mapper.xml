@@ -34,7 +34,7 @@ where cn_user_id = #{cnUserId}
     </insert>
 
     <update id="updatePassword">
-        update cn_user set cn_user_password = #{cnUserPassword} where cn_user_id = #{cnUserName}
+        update cn_user set cn_user_password = #{cnUserPassword} where cn_user_id = #{cnUserId}
     </update>
     <update id="updateToken">
             update cn_user set cn_user_token = #{cnUserToken} where cn_user_id = #{cnUserId}

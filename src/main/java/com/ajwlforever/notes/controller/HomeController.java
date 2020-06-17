@@ -5,6 +5,7 @@ import com.ajwlforever.notes.annotation.LoginRequired;
 import com.ajwlforever.notes.entity.User;
 import com.ajwlforever.notes.service.UserService;
 import com.ajwlforever.notes.utils.NetworkUtil;
+import com.ajwlforever.notes.utils.NoteResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -124,7 +125,7 @@ public class HomeController {
         return CloudNotesUtil.toJsonString(code,msg);
     }
 
-
+    @LoginRequired
     @RequestMapping(path = "/logout" ,method = RequestMethod.GET)
     public String logout(@CookieValue("token")String token)
     {
@@ -138,5 +139,28 @@ public class HomeController {
     public  String changePassword(HttpServletRequest request)
     {
       return "/Change_password";
+    }
+
+    @LoginRequired
+    @RequestMapping(path = "/changePassword" , method =  RequestMethod.POST)
+    @ResponseBody
+    public NoteResult<String> changePassword(String oldPassword, String newPassword,@CookieValue("token")String token)
+    {
+        System.out.println(oldPassword+":"+newPassword);
+        String  userId =  token.split(":",2)[1];
+        User user = userService.selectById(userId);
+        NoteResult<String> result = new NoteResult<>();
+        if(!user.getCnUserPassword().equals(CloudNotesUtil.md5(oldPassword)))
+        {
+            //旧密码不对
+            result.setStatus(1);
+            result.setMsg("原密码不正确");
+            return  result;
+        }
+        userService.updatePassword(userId,newPassword);
+        result.setStatus(0);
+        result.setMsg("修改密码成功");
+
+        return result;
     }
 }
