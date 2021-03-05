@@ -26,4 +26,10 @@ public class NoteBookTest {
        List<Notebook> list = notebookService.selectByUserId("39295a3d-cc9b-42b4-b206-a2e7fab7e77c");
         System.out.println(list);
     }
+
+    @Test
+    public void delete()
+    {
+        notebookService.deleteNotebook("282898ab-84e4-48c8-a09d-4002c513438f");
+    }
 }

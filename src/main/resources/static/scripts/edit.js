@@ -1,4 +1,4 @@
-CONTEXT_PATH = "http://localhost:8080/cloud_notes";
+CONTEXT_PATH = "";
 
 $(function () {
     loadUserBooks();
@@ -20,11 +20,16 @@ $(function () {
     $("#save_note").click(saveNote);
  
 
-
-    // //点击笔记菜单的x按钮，弹出确认框
-    // $("#note_ul").on("click",".btn_delete",alertRecycleNoteWindow);
-    // //单击确认框中"删除"按钮
-    // $("#can").on("click","#sure_recyclenote",sureRecycleNote);
+    $("#rollback_button").on("click",function () {
+        alertAddWindow("/alert/alert_delete_notebook.html");
+    });
+    $("#can").on("click","#sure_recyclenotebook",sureRecycleNotebook);
+      //点击笔记菜单的x按钮，弹出确认框
+     $("#note_ul").on("click",".btn_delete",function () {
+            alertAddWindow("/alert/alert_delete_note.html");
+     });
+     //单击确认框中"删除"按钮
+     $("#can").on("click","#sure_recyclenote",sureRecycleNote);
     // //点击笔记菜单的"转移"按钮,弹出转移对话框
     // $("#note_ul").on("click",".btn_move",alertMoveNoteWindow);
     // //确定转移笔记操作
@@ -64,6 +69,57 @@ $(function () {
 
 });
 
+//删除笔记本
+function  sureRecycleNotebook() {
+    var $li = $("#book_ul a.checked").parent();
+    var bookId = $li.data("bookId");//笔记本ID
+    console.log("sureRecycleNotebook:"+bookId);
+    $.ajax(
+        {
+            url:CONTEXT_PATH+"/recycleNotebook",
+            type:"post",
+            data:{"bookId":bookId},
+            dataType:"json",
+            success:function (result) {
+                if(result.status==0)
+                {
+                    closeAlertWindow();
+                    $li.empty();
+                    console.log(bookId+result.msg);
+                }
+            },
+            error:function () {
+                    alert("笔记本彻底删除失败");
+            }
+        }
+    );
+}
+//删除笔记
+function  sureRecycleNote() {
+    var $li = $("#note_ul a.checked").parent();
+    var noteId = $li.data("noteId");
+
+    $.ajax(
+        {
+            url:CONTEXT_PATH+"/recycleNote",
+            type:"post",
+            data:{"noteId":noteId},
+            dataType:"json",
+            success:function (result) {
+                if(result.status==0)
+                {
+                    closeAlertWindow();
+                    $li.empty();
+                    console.log(noteId+result.msg);
+                }
+            },
+            error:function () {
+                alert("笔记回收失败");
+            }
+        }
+    );
+
+}
 function saveNote() {
 //获取请求参数
     var body = um.getContent();//笔记内容

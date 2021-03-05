@@ -15,5 +15,5 @@ public interface NoteMapper {
      Note findById(String cnNoteId);
 
     int updateNote(String cnNoteId,String cnNoteTitle,String cnNoteBody,long cnNoteLastModifyTime);
-
+    int updateNoteTypeId(String cnNoteId,String cnNoteTypeId);
 }

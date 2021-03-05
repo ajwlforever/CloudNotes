@@ -18,6 +18,6 @@ public interface NotebookMapper {
     int insertNotebook(Notebook notebook);
 
     int updateNotebookTypeId(String cnNotebookId,String cnNotebookTypeId);
-
+    int deleteNotebook(String cnNotenookId);
 
 }

@@ -45,4 +45,8 @@ public class NoteService {
     {
         return noteMapper.updateNote(cnNoteId,cnNoteTitle,cnNoteBody,cnNoteLastModifyTime);
     }
+    public int RecycleNote(String cnNoteId,String cnNoteTypeId)
+    {
+        return noteMapper.updateNoteTypeId(cnNoteId,cnNoteTypeId);
+    }
 }

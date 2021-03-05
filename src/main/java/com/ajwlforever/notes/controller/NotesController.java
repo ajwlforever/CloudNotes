@@ -110,5 +110,28 @@ public class NotesController {
         return  result;
     }
 
+    @LoginRequired
+    @RequestMapping(path ="/recycleNote",method = RequestMethod.POST)
+    @ResponseBody
+    public NoteResult<String> recycleNote(String noteId)
+    {
+        noteService.RecycleNote(noteId,"2");
+        NoteResult<String>  result = new NoteResult<> ();
+        result.setStatus(0);
+        result.setMsg("笔记回收成功！");
+        return  result;
+    }
+
+    @LoginRequired
+    @RequestMapping(path ="/recycleNotebook",method = RequestMethod.POST)
+    @ResponseBody
+    public NoteResult<String>  recycleNotebook(String bookId)
+    {
+        notebookService.deleteNotebook(bookId);
+        NoteResult<String>  result = new NoteResult<> ();
+        result.setStatus(0);
+        result.setMsg("笔记本彻底删除成功！");
+        return  result;
+    }
 
 }

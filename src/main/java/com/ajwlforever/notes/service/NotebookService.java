@@ -65,7 +65,7 @@ public class NotebookService {
     {
         return notebookMapper.insertNotebook(notebook);
     }
-
+    public int deleteNotebook(String noteBookId){return notebookMapper.deleteNotebook(noteBookId);}
     public int updateNotebookTypeId(String id,String typeId)
     {
         return notebookMapper.updateNotebookTypeId(id,typeId);

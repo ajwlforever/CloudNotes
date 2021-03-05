@@ -13,7 +13,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>cloudnotes</name>
-	<description>Cloud Notes </description>
+	<description>Cloud Notes</description>
+
 
 	<properties>
 		<java.version>11</java.version>
@@ -112,6 +113,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

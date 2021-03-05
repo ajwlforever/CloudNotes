@@ -45,17 +45,17 @@
                 </div>
             </div>
             <form class="form-inline" onsubmit="return false;">
-                <button type="button" class="btn btn-default btn-expand-search"><i class="fa fa-search"></i></button>
-                <div class="toggle-search">
-                    <input type="text" class="form-control" placeholder="搜索笔记" id='search_note'>
-                    <button type="button" class="btn btn-default btn-collapse-search"><i class="fa fa-times"></i></button>
-                </div>
-            </form>
-            <ul class="hidden-xs header-menu pull-right">
-                <li>
-                    <a href="activity.html" target='_blank' title="笔记活动">活动</a>
-                </li>
-            </ul>
+<!--                <button type="button" class="btn btn-default btn-expand-search"><i class="fa fa-search"></i></button>-->
+<!--                <div class="toggle-search">-->
+<!--                    <input type="text" class="form-control" placeholder="搜索笔记" id='search_note'>-->
+<!--                    <button type="button" class="btn btn-default btn-collapse-search"><i class="fa fa-times"></i></button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--            <ul class="hidden-xs header-menu pull-right">-->
+<!--                <li>-->
+<!--                    <a href="#" target='_blank' title="笔记活动">活动</a>-->
+<!--                </li>-->
+<!--            </ul>-->
         </header>
 		<div class="row" style='padding:0;' id='center'>
 			<!-- alert_background-->
@@ -82,7 +82,7 @@
 					</div>
 				</aside>
 				<div class="row clear_margin">
-					<div class="col-xs-4 click" id='rollback_button' title='回收站'><i class='fa fa-trash-o' style='font-size:20px;line-height:31px;'></i></div>
+					<div class="col-xs-4 click" id="rollback_button" title='回收站'><i class='fa fa-trash-o' style='font-size:20px;line-height:31px;'></i></div>
 					<div class="col-xs-4 click" id='like_button' title='收藏笔记本'><i class='fa fa-star' style='font-size:20px;line-height:31px;'></i></div>
 					<div class="col-xs-4 click" id='action_button' title='参加活动笔记'><i class='fa fa-users' style='font-size:20px;line-height:30px;'></i></div>
 				</div>
@@ -304,7 +304,7 @@
 			var um = UM.getEditor('myEditor');
 
 		</script>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
 		<script th:src="@{/scripts/edit.js}"></script>
 
 		</body>		

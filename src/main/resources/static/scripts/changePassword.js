@@ -1,4 +1,4 @@
-CONTEXT_PATH = "http://localhost:8080/cloud_notes";
+CONTEXT_PATH = "";
 
 $(function () {
     $("#changePassword").click(changePassword);

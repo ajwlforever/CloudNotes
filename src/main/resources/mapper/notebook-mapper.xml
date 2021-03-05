@@ -12,7 +12,7 @@ cn_notebook_id,cn_user_id,cn_notebook_type_id,cn_notebook_name,cn_notebook_desc,
     <select id="selectByUserId" resultType="Notebook">
         select *
         from cn_notebook
-        where cn_user_id = #{cnUserId}
+        where cn_user_id = #{cnUserId} and cn_notebook_type_id != 2
         order by cn_notebook_type_id desc,cn_notebook_createtime desc
     </select>
     <select id="selectByNotebookId" resultType="Notebook">
@@ -36,4 +36,9 @@ cn_notebook_id,cn_user_id,cn_notebook_type_id,cn_notebook_name,cn_notebook_desc,
         update cn_notebook ser cn_notebok_type_id = #{cnNotebookTypeId} where cn_book_id =#{cnNotebookId}
     </update>
 
+    <delete id="deleteNotebook">
+        delete t1,t2
+  from cloud_note.cn_notebook t1 LEFT JOIN cloud_note.cn_note  t2
+  ON t1.cn_notebook_id=t2.cn_notebook_id WHERE t1.cn_notebook_id= #{cnNotebookId};
+    </delete>
 </mapper>
