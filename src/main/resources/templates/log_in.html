@@ -110,12 +110,12 @@
 
 		var CONTEXT_PATH = "";
 		$(function () {
-			alert("start");
+
 			$("#regist_button").click(regist);
 			$("#login").click(login);
 		});
 		function regist() {
-			alert("click_regist");
+
 			var userName = $("#regist_username").val();
 			var userPassword = $("#regist_password").val();
 			var userNick = $("#nickname").val();
@@ -161,7 +161,8 @@
 							get('dl').className='log log_in';
 
 						}else
-						{alert(data.msg);
+						{
+							alert(data.msg);
 						}
 					}
 			);

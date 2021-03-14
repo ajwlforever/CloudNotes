@@ -38,6 +38,7 @@ public class HomeController {
         return "/log_in";
     }
 
+
     @RequestMapping(path = "/login",method = RequestMethod.POST)
     @ResponseBody
     public String login(String cnUserName, String cnUserPassword, HttpServletResponse response)
